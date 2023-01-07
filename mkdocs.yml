@@ -22,9 +22,6 @@ theme:
 extra_css:
   - assets/extra.css
 
-extra_javascript:
-  - assets/extra.js
-
 plugins:
   - search
 
