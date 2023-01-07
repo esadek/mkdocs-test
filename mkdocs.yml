@@ -3,6 +3,8 @@ site_name: ID Stitching dbt Package
 theme:
   name: material
   logo: assets/logo.png
+  font:
+    text: Inter
   icon:
     repo: fontawesome/brands/github
   features:
@@ -16,6 +18,12 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+
+extra_css:
+  - assets/extra.css
+
+extra_javascript:
+  - assets/extra.js
 
 plugins:
   - search
@@ -40,6 +48,7 @@ nav:
   - 'configuration.md'
   - 'usage.md'
   - 'models.md'
+  - 'utilizing_id_graph.md'
   - 'faq.md'
 
 copyright: Copyright &copy; 2023 RudderStack Inc.

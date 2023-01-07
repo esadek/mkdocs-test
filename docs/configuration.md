@@ -1,5 +1,7 @@
 # Configuration
 
+This package is configured with [dbt variables](https://docs.getdbt.com/reference/dbt-jinja-functions/var).
+
 Set ID columns in `dbt_project.yml`:
 
 ```yaml
@@ -7,9 +9,9 @@ vars:
   id-columns: ('user_id', 'anonymous_id', 'email', 'phone', 'salesforce_id')
 ```
 
-This package searches your data warehouse for tables that include multiple columns defined in `id-columns`.
+Your data warehouse is searched for tables that include multiple columns defined in `id-columns`. The `id-columns` variable is required. All other variables are optional.
 
-The `id-columns` configuration variable is required. All other variables are optional.
+---
 
 ## ID Columns
 
@@ -44,7 +46,7 @@ Exclude specific warehouse schemas.
 
 ```yaml
 vars:
-  schemas-to-exclude: ('anonymous_id')
+  schemas-to-exclude: ('test', 'steven')
 ```
 
 ## Include Tables
@@ -53,7 +55,7 @@ Include only specific tables.
 
 ```yaml
 vars:
-  tables-to-include: ('anonymous_id')
+  tables-to-include: ('tickets', 'leads', 'identifies')
 ```
 
 ## Exclude Tables
@@ -62,5 +64,5 @@ Exclude specific tables.
 
 ```yaml
 vars:
-  tables-to-exclude: ('anonymous_id')
+  tables-to-exclude: ('analytics', 'telemetry')
 ```

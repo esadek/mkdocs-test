@@ -1,5 +1,9 @@
 # Usage
 
+1. Run `queries` and `edges`.
+2. Run `edges` enough times to stitch all IDs. Run `check_edges` to determine if `edges` must be run again.
+3. Run `id_graph`.
+
 The `edges` model must be run enough times to match all edges (IDs). Five or six passes is usually sufficient. The `check_edges` model will show 0 when all edges have been matched. Edit your job commands for [dbt Cloud](https://docs.getdbt.com/docs/dbt-cloud/cloud-overview) or `run.sh` script for [dbt CLI](https://docs.getdbt.com/dbt-cli/cli-overview) to run the `edges` model however many times is necessary.
 
 ## dbt CLI
