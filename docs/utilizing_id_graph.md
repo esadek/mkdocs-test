@@ -43,7 +43,7 @@ ORDER BY timestamp
 
 | rudder_id | anonymous_id | user_id | context_traits_email | path | url | referrer | timestamp |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 48 | 162e704a-ea35-4076-9f52-50376c25710f | null | null | / | https://company.com | $direct | 2022-11-18 23:02:35.231+00 |
+| 48 | 162e704a-ea35-4076-9f52-50376c25710f | NULL | NULL | / | https://company.com | $direct | 2022-11-18 23:02:35.231+00 |
 | 48 | 162e704a-ea35-4076-9f52-50376c25710f | null | null | /signup | https://company.com/signup | $direct | 2022-11-18 23:02:42.432+00 |
 | 48 | 162e704a-ea35-4076-9f52-50376c25710f | 203984629341 | amy@gmail.com | /dashboard | https://company.com/dashboard | $direct | 2022-11-18 23:03:12.244+00 |
 | 48 | 162e704a-ea35-4076-9f52-50376c25710f | 203984629341 | amy@gmail.com | /settings | https://company.com/settings | $direct | 2022-11-18 23:03:54.173+00 |

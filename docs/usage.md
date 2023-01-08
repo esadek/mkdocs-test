@@ -1,12 +1,14 @@
 # Usage
 
-1. Run `queries` and `edges`.
-2. Run `edges` enough times to stitch all IDs. Run `check_edges` to determine if `edges` must be run again.
+1. Run `queries`, `edges` and `check_edges`.
+2. Run `edges` enough times to stitch all IDs. Query `check_edges` to determine if `edges` must be run again.
 3. Run `id_graph`.
 
-The `edges` model must be run enough times to match all edges (IDs). Five or six passes is usually sufficient. The `check_edges` model will show 0 when all edges have been matched. Edit your job commands for [dbt Cloud](https://docs.getdbt.com/docs/dbt-cloud/cloud-overview) or `run.sh` script for [dbt CLI](https://docs.getdbt.com/dbt-cli/cli-overview) to run the `edges` model however many times is necessary.
+---
 
-## dbt CLI
+## dbt Core
+
+The models can be run using a script.
 
 ### Shell Script
 
@@ -16,9 +18,42 @@ Run the included `run.sh` shell script:
 ./run.sh
 ```
 
-Additional intstrumentation can be created to evaluate the `check_edges` model to determine programatically whether to run the `edges` model subsequent times.
+The loop can be edited to run `edges` the necessary number of times.
+
+```bash
+#!/bin/sh
+
+dbt run --full-refresh --select queries edges check_edges
+
+for i in {1..5}
+do
+  dbt run --select edges
+done
+
+dbt run --select id_graph
+```
 
 ### Python Script
+
+A Python script can be used to automatically run `edges` to necessary number of times by evaluating the `check_edges` view to determine programatically whether to run the `edges` model subsequent times.
+
+```python
+from os import system
+from sqlalchemy import create_engine
+
+
+db = create_engine("dialect+driver://username:password@host:port/database")
+
+with open("target/compiled/id_stitching/models/check_edges.sql") as file:
+    query = file.read()
+
+system("dbt run --full-refresh --select queries edges")
+
+while db.execute(query).first()["count"]:
+    system("dbt run --select id_graph")
+
+system("dbt run id_graph")
+```
 
 ## dbt Cloud
 
@@ -32,3 +67,5 @@ dbt run --select edges
 dbt run --select edges
 dbt run --select edges check_edges id_graph
 ```
+
+Add or remove runs of `edges` using the `check_edges` view.
