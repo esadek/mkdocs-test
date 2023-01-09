@@ -15,7 +15,7 @@ The models can be run using a script.
 Run the included `run.sh` shell script:
 
 ```bash
-./run.sh
+./dbt_packages/id_stitching/run.sh
 ```
 
 The loop can be edited to run `edges` the necessary number of times.
@@ -39,20 +39,18 @@ A Python script can be used to automatically run `edges` to necessary number of 
 
 ```python
 from os import system
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
 
-db = create_engine("dialect+driver://username:password@host:port/database")
+engine = create_engine("dialect+driver://username:password@host:port/database")
 
-with open("target/compiled/id_stitching/models/check_edges.sql") as file:
-    query = file.read()
+system("dbt run --full-refresh --select queries edges check_edges")
 
-system("dbt run --full-refresh --select queries edges")
+with engine.connect() as connection:
+    while connection.execute(text("SELECT rows_to_update FROM id_stitching.check_edges")).first()[0]:
+        system("dbt run --select edges")
 
-while db.execute(query).first()["count"]:
-    system("dbt run --select id_graph")
-
-system("dbt run id_graph")
+system("dbt run --select id_graph")
 ```
 
 ## dbt Cloud

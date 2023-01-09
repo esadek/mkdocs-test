@@ -41,10 +41,10 @@ repo_name: dbt-id-stitching
 
 nav:
   - 'index.md'
+  - 'models.md'
   - 'installation.md'
   - 'configuration.md'
   - 'usage.md'
-  - 'models.md'
   - 'utilizing_id_graph.md'
   - 'faq.md'
 
